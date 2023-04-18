@@ -264,3 +264,4 @@ function enviarCompra(e) {
   localStorage.clear()
 
 }
+ jaksndalsd

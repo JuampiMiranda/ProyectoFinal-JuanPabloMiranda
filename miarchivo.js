@@ -2,10 +2,12 @@
 
 const hayStock = "json/productos.json";
 
+let productoStock = []
 fetch(hayStock)
   .then(respuesta => respuesta.json())
   .then(datos => {
-    datos.forEach(prod => {
+    productoStock = datos
+    productoStock.forEach(prod => {
       const { id, nombre, precio, img, cantidad } = prod;
       contenedor.innerHTML += `
     <div class="card mt-3 m-3 justify-content-center shadow" style="width: 18rem;">
@@ -33,7 +35,6 @@ const formulario = document.querySelector('#procesar-pago')
 if (formulario) {
   formulario.addEventListener('submit', enviarCompra)
 }
-
 
 if (vaciarCarrito) {
   vaciarCarrito.addEventListener("click", () => {
@@ -67,7 +68,7 @@ const agregarProducto = (id) => {
       }
     })
   } else {
-    const item = hayStock.find((prod) => prod.id === id)
+    const item = productoStock.find((prod) => prod.id === id)
     carrito.push(item)
   }
   mostrarCarrito()

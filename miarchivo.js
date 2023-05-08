@@ -1,77 +1,28 @@
 //TARJETAS DE PRODUCTOS
 
-const hayStock = [
-  {
-    id: 1,
-    nombre: "Magneto",
-    cantidad: 4,
-    precio: 50000,
-    img: "img/magneto.jpg",
-  },
-  {
-    id: 2,
-    nombre: "Lipolaser",
-    cantidad: 2,
-    precio: 75000,
-    img: "img/lipolaser.jpg",
-  },
-  {
-    id: 3,
-    nombre: "Ultrasonido",
-    cantidad: 2,
-    precio: 90000,
-    img: "img/ultrasonido.jpg",
-  },
-  {
-    id: 4,
-    nombre: "HIFU",
-    cantidad: 8,
-    precio: 78000,
-    img: "img/HIFU.jpeg",
-  },
-  {
-    id: 5,
-    nombre: "Calentadora-Toalla",
-    cantidad: 4,
-    precio: 40000,
-    img: "img/calentadoraToalla.jpeg",
-  },
-  {
-    id: 6,
-    nombre: "Magneto completo",
-    cantidad: 6,
-    precio: 350000,
-    img: "img/magneto.jpeg",
-  },
-  {
-    id: 7,
-    nombre: "Hidroterapia",
-    cantidad: 3,
-    precio: 360000,
-    img: "img/hidroterapia.jpg",
-  },
-  {
-    id: 8,
-    nombre: "Fotodepiladora",
-    cantidad: 7,
-    precio: 1200,
-    img: "img/fotodepiladora.jpeg",
-  },
-  {
-    id: 9,
-    nombre: "Roll-On",
-    cantidad: 5,
-    precio: 18000,
-    img: "img/Roll-On.jpeg",
-  },
-  {
-    id: 10,
-    nombre: "Electroestimulador",
-    cantidad: 8,
-    precio: 25000,
-    img: "img/electroestimulador.jpg",
-  },
-];
+const hayStock = "json/productos.json";
+
+fetch(hayStock)
+  .then(respuesta => respuesta.json())
+  .then(datos => {
+    datos.forEach(prod => {
+      const { id, nombre, precio, img, cantidad } = prod;
+      if (contenedor) {
+        contenedor.innerHTML += `
+    <div class="card mt-3 m-3 justify-content-center shadow" style="width: 18rem;">
+    <img class="card-img-top p-2 mt-2" src="${img}" alt="Card image cap">
+    <div class="card-body p-3">
+      <h5 class="card-title">${nombre}</h5>
+      <p class="card-text">Precio: ${precio}</p>
+      <p class="card-text">Cantidad: ${cantidad}</p>
+      <button class="btn btn-primary" onclick="agregarProducto(${id})">Comprar Producto</button>
+    </div>
+  </div>
+    `;
+      }
+    })
+  })
+
 let carrito = [];
 
 const contenedor = document.querySelector("#contenedor");
@@ -119,23 +70,6 @@ if (procesarCompra) {
     }
   });
 }
-
-hayStock.forEach((prod) => {
-  const { id, nombre, precio, img, cantidad } = prod;
-  if (contenedor) {
-    contenedor.innerHTML += `
-    <div class="card mt-3 m-3 justify-content-center shadow" style="width: 18rem;">
-    <img class="card-img-top p-2 mt-2" src="${img}" alt="Card image cap">
-    <div class="card-body p-3">
-      <h5 class="card-title">${nombre}</h5>
-      <p class="card-text">Precio: ${precio}</p>
-      <p class="card-text">Cantidad: ${cantidad}</p>
-      <button class="btn btn-primary" onclick="agregarProducto(${id})">Comprar Producto</button>
-    </div>
-  </div>
-    `;
-  }
-});
 
 const agregarProducto = (id) => {
   const existe = carrito.some(prod => prod.id === id)

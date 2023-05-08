@@ -7,8 +7,7 @@ fetch(hayStock)
   .then(datos => {
     datos.forEach(prod => {
       const { id, nombre, precio, img, cantidad } = prod;
-      if (contenedor) {
-        contenedor.innerHTML += `
+      contenedor.innerHTML += `
     <div class="card mt-3 m-3 justify-content-center shadow" style="width: 18rem;">
     <img class="card-img-top p-2 mt-2" src="${img}" alt="Card image cap">
     <div class="card-body p-3">
@@ -17,9 +16,7 @@ fetch(hayStock)
       <p class="card-text">Cantidad: ${cantidad}</p>
       <button class="btn btn-primary" onclick="agregarProducto(${id})">Comprar Producto</button>
     </div>
-  </div>
-    `;
-      }
+    </div> `;
     })
   })
 
@@ -29,21 +26,10 @@ const contenedor = document.querySelector("#contenedor");
 const carritoContenedor = document.querySelector("#carritoContenedor");
 const vaciarCarrito = document.querySelector("#vaciarCarrito");
 const precioTotal = document.querySelector("#precioTotal");
-const activarFuncion = document.querySelector("#activarFuncion");
 const procesarCompra = document.querySelector("#procesarCompra");
 const totalProceso = document.querySelector("#totalProceso");
 const formulario = document.querySelector('#procesar-pago')
 
-if (activarFuncion) {
-  activarFuncion.addEventListener("click", procesarPedido);
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-  mostrarCarrito();
-  document.querySelector("#activarFuncion").click(procesarPedido);
-});
 if (formulario) {
   formulario.addEventListener('submit', enviarCompra)
 }
